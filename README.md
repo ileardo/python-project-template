@@ -1,2 +1,2 @@
-# python-project-template
-Template repository
+# Python Project Template
+Template repository. See: [setup.md](setup.md)
