@@ -17,7 +17,7 @@ NC     = \033[0m # No Color
 .DEFAULT_GOAL := help
 
 # Phony targets (not actual files)
-.PHONY: help install setup test lint version
+.PHONY: help install setup test version
 
 help:
 	@echo -e "$(BLUE){{PROJECT_NAME}}$(NC)"
@@ -33,7 +33,6 @@ help:
 	@echo ""
 	@echo -e "$(BLUE)Development targets:$(NC)"
 	@echo -e "  $(GREEN)make test$(NC)       - Run pytest with coverage"
-	@echo -e "  $(GREEN)make lint$(NC)       - Run Ruff linter"
 	@echo ""
 	@echo -e "$(BLUE)Version management:$(NC)"
 	@echo -e "  $(GREEN)make version$(NC)    - Show current version and check consistency"
@@ -53,9 +52,6 @@ setup:
 
 test:
 	python -m pytest
-
-lint:
-	ruff check $(SRC_DIR)/
 
 version:
 	@echo -e "$(BLUE)Current version:$(NC)"

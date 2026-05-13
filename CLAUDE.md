@@ -127,6 +127,5 @@ Use `python-dotenv` to load the environment — never hardcode credentials.
 make install    # install package in editable mode with dev dependencies
 make setup      # generate .env from .env.example (run once)
 make test       # run pytest with coverage
-make lint       # run Ruff linter
 make version    # verify version consistency across pyproject.toml and __init__.py
 ```
