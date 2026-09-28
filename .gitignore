@@ -208,3 +208,6 @@ __marimo__/
 
 # Git worktrees (created by /worktree for parallel work)
 .worktree/
+
+# Local project documents (e.g. project-context.md moved here after setup)
+documents/

@@ -22,12 +22,21 @@ Tutti i valori specifici del progetto sono rappresentati da segnaposto nella for
 Il tuo compito è guidare l'utente nella configurazione iniziale, sostituire i segnaposto, e costruire
 la struttura del progetto in modo corretto e completo.
 
+Insieme a questo file, l'utente potrebbe averti passato anche `project-context.md`: un file in cui
+ha scritto in linguaggio naturale ciò che già sa sul progetto. Se esiste, leggilo prima di iniziare
+la Fase 1 — vedi le istruzioni all'inizio di quella fase.
+
 ---
 
 ## Fase 1 — Raccolta requisiti
 
-Prima di modificare qualsiasi file, poni all'utente queste domande in un unico messaggio.
-Aspetta la risposta completa prima di procedere alla Fase 2.
+Se `project-context.md` esiste nella root del progetto, leggilo per primo. Usa le informazioni
+che contiene per rispondere autonomamente alle domande sotto, dove possibile. Se non esiste,
+considera tutte le domande aperte.
+
+Prima di modificare qualsiasi file, poni all'utente in un unico messaggio solo le domande rimaste
+aperte o ambigue — non chiedere di nuovo ciò a cui `project-context.md` ha già risposto in modo
+chiaro. Aspetta la risposta completa prima di procedere alla Fase 2.
 
 1. **Nome del progetto** — Come si chiama il progetto?
    Sarà il nome in `pyproject.toml` e nell'intestazione di `CLAUDE.md`.
@@ -175,6 +184,10 @@ Sostituisci le sezioni segnaposto in `CLAUDE.md`:
 1. **Stack** — lista le tecnologie effettive (framework, DB, LLM, librerie principali)
 2. **Module Map** — tabella con i moduli reali e le loro responsabilità
 
+Se `project-context.md` esiste, usalo come fonte primaria per compilare queste sezioni (insieme
+alle risposte di Fase 1): `project-context.md` non verrà versionato (vedi step 2.11), quindi le
+informazioni durature che contiene vanno travasate qui, in `CLAUDE.md`, che è invece tracciato.
+
 ### 2.8 — Aggiornare `CHANGELOG.md`
 
 Nella sezione `[0.1.0]`:
@@ -205,6 +218,16 @@ make test       # deve terminare (con 0 test raccolti è normale all'inizio)
 
 Riporta all'utente l'output di ogni comando.
 
+### 2.11 — Spostamento file di contesto e pulizia
+
+Ultimo passaggio, da eseguire solo dopo che la verifica 2.10 è andata a buon fine:
+
+1. Crea la cartella `documents/` nella root del progetto, se non esiste già.
+2. Se `project-context.md` esiste, spostalo dentro `documents/`.
+3. Cancella `setup.md` (questo file).
+4. Conferma all'utente che `documents/` è già presente in `.gitignore` e quindi non verrà
+   versionata.
+
 ---
 
 ## Struttura del template — cosa c'è e perché
@@ -226,7 +249,8 @@ Riporta all'utente l'output di ogni comando.
 | `CLAUDE.md` | Guida per Claude Code: panoramica del progetto, standard di codice obbligatori (English only, type hints, docstrings, single quotes), gestione versioni semver, comandi comuni. |
 | `.env.example` | Template delle variabili d'ambiente. Copiato in `.env` da `make setup`. |
 | `.gitignore` | Gitignore completo per progetti Python: cache, venv, .env, editor, OS, Jupyter, packaging tools. |
-| `setup.md` | Questo file — guida onboarding per l'AI. Non viene incluso nel wheel Python. |
+| `setup.md` | Questo file — guida onboarding per l'AI. Non viene incluso nel wheel Python. Viene cancellato da Claude al termine del setup (step 2.11). |
+| `project-context.md` | File opzionale compilato dall'utente con informazioni note sul progetto, letto in Fase 1. Alla fine del setup viene spostato in `documents/` (gitignored). |
 
 ---
 
@@ -248,5 +272,6 @@ Riporta all'utente l'output di ogni comando.
 6. **Verifica sempre la consistenza delle versioni** — dopo qualsiasi modifica a `pyproject.toml`
    o `__init__.py`, esegui `make version` e assicurati che stampi `[PASS]`.
 
-7. **Non modificare questo file** — `setup.md` è la guida di onboarding e non deve essere alterato
-   durante la configurazione. Può essere spostato o eliminato dall'utente dopo il setup iniziale.
+7. **Non modificare questo file durante la configurazione** — `setup.md` è la guida di onboarding
+   e il suo contenuto non va alterato mentre segui le fasi. Viene cancellato solo alla fine, come
+   ultima azione dello step 2.11.
