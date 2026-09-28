@@ -1,6 +1,6 @@
 ---
 name: commit
-description: How to stage and commit changes in this repo. Use whenever the user asks to commit, save changes, or check in code — even without typing /add-and-commit — and whenever committing is a side effect of another task (e.g. finishing a feature).
+description: How to stage and commit changes in this repo. Use whenever the user asks to commit, save changes, or check in code — even without typing /add-and-commit.
 ---
 
 # Committing in this repo

@@ -67,6 +67,16 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+**Final verification is the user's call, not yours.** Once the work itself is done, don't run the closing test/lint/run pass yourself — environment mismatches (wrong Python/conda env, missing permissions) make Claude-run verification unreliable and waste time chasing false failures. Instead, end with the exact commands the user should run (tests, lint, running the app, etc.) and stop there. This doesn't apply to the quick checks you run on yourself while actively writing code — only to the concluding pass that closes out a task or plan.
+
+## 5. Git Stays Manual
+
+**Never run git add/commit/push/tag on your own initiative.**
+
+- Don't add git steps to a plan, and don't perform them as the "wrap-up" of a finished task.
+- Only touch git when the user explicitly asks in that message, or via the dedicated commands in `.claude/commands/` (`/add-and-commit`, `/pr`, `/release`).
+- Read-only git commands (`git status`, `git diff`, `git log`) are always fine — this rule is about commands that change repo or remote state.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
@@ -182,6 +192,10 @@ Run `make version` to verify consistency between the two files.
 ---
 
 ## Environment
+
+**Virtual environment**: {{ENV_SETUP_NOTE}}. Commands that need it (tests, running scripts, `pip`)
+may fail or use the wrong interpreter if run without activating it first — when in doubt, hand the
+command to the user instead of running it (see Goal-Driven Execution → final verification).
 
 All secrets and connection strings are stored in `.env` (gitignored). Copy `.env.example` to `.env`
 and fill in the values before running any command. Run `make setup` to do this automatically.

@@ -59,6 +59,11 @@ Aspetta la risposta completa prima di procedere alla Fase 2.
    servizi esterni? Se sì, quali? (Questo determina se aggiungere `docker-compose.yml` e target
    extra al Makefile.)
 
+8. **Ambiente virtuale** — Che virtual environment usa questo progetto (conda, venv, altro)?
+   Indica nome dell'env e comando di attivazione, es. `conda activate invoice-extractor` o
+   `source .venv/bin/activate`. Questa informazione va in `CLAUDE.md` così Claude sa quando un
+   comando richiede l'ambiente attivato e quando invece deve limitarsi a scriverlo per l'utente.
+
 ---
 
 ## Fase 2 — Operazioni da eseguire
@@ -76,10 +81,11 @@ In tutti i file del template, sostituisci i token con i valori forniti dall'uten
 | `{{PACKAGE_NAME}}` | Nome del package Python (es. `invoice_extractor`) |
 | `{{DESCRIPTION}}` | Descrizione del progetto |
 | `{{PYTHON_MIN_VERSION}}` | Versione Python minima (es. `3.12`) |
+| `{{ENV_SETUP_NOTE}}` | Nome env e comando di attivazione (es. `conda activate my-project`) |
 
 File da aggiornare (controlla ogni occorrenza):
 - `pyproject.toml` — `name`, `description`, `requires-python`, `packages`, `--cov`
-- `CLAUDE.md` — Project Overview, Version Management
+- `CLAUDE.md` — Project Overview, Version Management, Environment
 - `Makefile` — intestazione del target `help`, variabile `PACKAGE_NAME`
 - `.github/workflows/ci.yml` — `python-version`
 - `.claude/commands/write-test.md` — tutte le occorrenze di `{{PACKAGE_NAME}}`
